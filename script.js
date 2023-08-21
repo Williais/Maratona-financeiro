@@ -22,6 +22,7 @@ const Storage = {
     get() {
         return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
     },
+    
     set(transactions) {
         localStorage.setItem("dev.finances:transactions", JSON.stringify(transactions))
     }
@@ -30,7 +31,7 @@ const Storage = {
 const Transaction = {
     all: Storage.get(),
 
-    add(transactions){
+    add(transactions) {
         Transaction.all.push(transactions)
 
         App.reload()
@@ -218,10 +219,8 @@ const Transaction = {
 
  const App = {
     init(){
-        Transaction.all.forEach((transactions, index) => {
-            DOM.addTransaction(transactions, index)
-         })
-        
+        Transaction.all.forEach(DOM.addTransaction)
+    
          DOM.updateBalance()
 
          Storage.set(Transaction.all)
